@@ -1,6 +1,27 @@
 # BDG(BERT-based Distractor Generation)
 Code for "A BERT-based Distractor Generation Scheme with Multi-tasking and Negative Answer Training Strategies."  
 
+## Trained Model and Code Example
+Trained model available on release:  
+https://github.com/voidful/BDG/releases/tag/v1.0
+
+Colab notebook for using pre trained model:  
+https://colab.research.google.com/drive/1yA3Rex9JHKJmc52E3YdsBQ4eQ_R6kEZB?usp=sharing
+
+## Citation
+
+If you make use of the code in this repository, please cite the following papers:
+
+    @misc{chung2020bertbased,
+      title={A BERT-based Distractor Generation Scheme with Multi-tasking and Negative Answer Training Strategies}, 
+      author={Ho-Lam Chung and Ying-Hong Chan and Yao-Chung Fan},
+      year={2020},
+      eprint={2010.05384},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL}
+    }
+
+
 ## Environment Setup
 ```bash
 pip install -r requirement.txt
