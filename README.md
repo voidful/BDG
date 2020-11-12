@@ -12,13 +12,19 @@ https://colab.research.google.com/drive/1yA3Rex9JHKJmc52E3YdsBQ4eQ_R6kEZB?usp=sh
 
 If you make use of the code in this repository, please cite the following papers:
 
-    @misc{chung2020bertbased,
-      title={A BERT-based Distractor Generation Scheme with Multi-tasking and Negative Answer Training Strategies}, 
-      author={Ho-Lam Chung and Ying-Hong Chan and Yao-Chung Fan},
-      year={2020},
-      eprint={2010.05384},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL}
+    @inproceedings{chung-etal-2020-bert,
+    title = "A {BERT}-based Distractor Generation Scheme with Multi-tasking and Negative Answer Training Strategies.",
+    author = "Chung, Ho-Lam  and
+      Chan, Ying-Hong  and
+      Fan, Yao-Chung",
+    booktitle = "Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing: Findings",
+    month = nov,
+    year = "2020",
+    address = "Online",
+    publisher = "Association for Computational Linguistics",
+    url = "https://www.aclweb.org/anthology/2020.findings-emnlp.393",
+    pages = "4390--4400",
+    abstract = "In this paper, we investigate the following two limitations for the existing distractor generation (DG) methods. First, the quality of the existing DG methods are still far from practical use. There are still room for DG quality improvement. Second, the existing DG designs are mainly for single distractor generation. However, for practical MCQ preparation, multiple distractors are desired. Aiming at these goals, in this paper, we present a new distractor generation scheme with multi-tasking and negative answer training strategies for effectively generating \textit{multiple} distractors. The experimental results show that (1) our model advances the state-of-the-art result from 28.65 to 39.81 (BLEU 1 score) and (2) the generated multiple distractors are diverse and shows strong distracting power for multiple choice question.",
     }
 
 
