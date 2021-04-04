@@ -1,7 +1,37 @@
-# BDG(BERT-based Distractor Generation)
+# BDG(Distractor Generation)
 Code for "A BERT-based Distractor Generation Scheme with Multi-tasking and Negative Answer Training Strategies."  
+[Paper](https://www.aclweb.org/anthology/2020.findings-emnlp.393/)
+
+## V2
+Updated result using BART. BART model is uploaded in HuggingFace model hub.
+| model         | BLEU1 | BLEU2 | BLEU3 | BLEU4 | ROUGEL |
+|---------------|-------|-------|-------|-------|--------|
+| Bert DG       | 35.30 | 20.65 | 13.66 | 9.53  | 31.11  |
+| Bert DG pm    | 39.81 | 24.81 | 17.66 | 13.56 | 34.01  |
+| Bert DG an+pm | 39.52 | 24.29 | 17.28 | 13.28 | 33.40  |
+| Bart DG       | 40.76 | 26.40 | 19.14 | 14.65 | 35.53  |
+| Bart DG pm    | 41.85 | 27.45 | 20.47 | 16.33 | 37.15  |
+| Bart DG an+pm | 40.26 | 25.86 | 18.85 | 14.65 | 35.64  |
+* higher is better
+
+| model         | Count BLEU1 > 0.95 |
+|---------------|--------------------|
+| Bert DG       | 115                |
+| Bert DG pm    | 57                 |
+| Bert DG an+pm | 43                 |
+| Bart DG       | 110                |
+| Bart DG pm    | 60                 |
+| Bart DG an+pm | 23                 |
+| Gold          | 12                 |
+* lower is better
 
 ## Trained Model and Code Example
+### BART
+Distractor: https://huggingface.co/voidful/bart-distractor-generation  
+Distractor PM: https://huggingface.co/voidful/bart-distractor-generation-pm  
+Distractor AN+PM: https://huggingface.co/voidful/bart-distractor-generation-both  
+
+### BERT 
 Trained model available on release:  
 https://github.com/voidful/BDG/releases/tag/v1.0
 
@@ -39,8 +69,18 @@ Download dataset [here](https://github.com/Yifan-Gao/Distractor-Generation-RACE)
 run `convert_data.py` to do preprocessing.  
 run `dataset_stat.py` for dataset statistics.  
 
-## Train BERT-based Distractor Generator
-run the following in main dir:
+## Train Distractor Generator
+### Bart
+using tfkit==0.7.0 and transformers==4.4.2  
+```bash
+tfkit-train --savedir ./race_cqa_gen_d_bart/ --train ./race_train_updated_cqa_dsep_a_bart.csv --test ./race_test_updated_cqa_dsep_a_bart.csv --model seq2seq  --config facebook/bart-base --batch 9 --epoch 10 --grad_accum 2 --no_eval;
+tfkit-train --savedir ./race_cqa_gen_d_bart_pm/ --train ./race_train_updated_cqa_dsep_a_bart.csv --test ./race_test_updated_cqa_dsep_a_bart.csv --model seq2seq  --config facebook/bart-base --batch 9 --epoch 10 --grad_accum 2 --no_eval --likelihood pos;
+tfkit-train --savedir ./race_cqa_gen_d_bart_both/ --train ./race_train_updated_cqa_dsep_a_bart.csv --test ./race_test_updated_cqa_dsep_a_bart.csv --model seq2seq  --config facebook/bart-base --batch 9 --epoch 10 --grad_accum 2 --no_eval --likelihood both;
+```
+
+### Bert
+using environment from `requirement.txt`   
+run the following in main dir:  
 ### Train BDG Model
 ```bash
 tfkit-train --maxlen 512 --savedir ./race_cqa_gen_d/ --train ./data_preprocessing/processed_data/race_train_updated_cqa_dsep_a.csv --test ./data_preprocessing/processed_data/race_test_updated_cqa_dsep_a.csv --model onebyone --tensorboard  --config bert-base-cased --batch 30 --epoch 6;
