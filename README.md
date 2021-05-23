@@ -6,22 +6,22 @@ Code for "A BERT-based Distractor Generation Scheme with Multi-tasking and Negat
 Updated result using BART. BART model is uploaded in HuggingFace model hub.
 | model         | BLEU1 | BLEU2 | BLEU3 | BLEU4 | ROUGEL |
 |---------------|-------|-------|-------|-------|--------|
-| Bert DG       | 35.30 | 20.65 | 13.66 | 9.53  | 31.11  |
-| Bert DG pm    | 39.81 | 24.81 | 17.66 | 13.56 | 34.01  |
-| Bert DG an+pm | 39.52 | 24.29 | 17.28 | 13.28 | 33.40  |
-| Bart DG       | 40.76 | 26.40 | 19.14 | 14.65 | 35.53  |
-| Bart DG pm    | 41.85 | 27.45 | 20.47 | 16.33 | 37.15  |
-| Bart DG an+pm | 40.26 | 25.86 | 18.85 | 14.65 | 35.64  |
+| BERT DG       | 35.30 | 20.65 | 13.66 | 9.53  | 31.11  |
+| BERT DG pm    | 39.81 | 24.81 | 17.66 | 13.56 | 34.01  |
+| BERT DG an+pm | 39.52 | 24.29 | 17.28 | 13.28 | 33.40  |
+| BART DG       | 40.76 | 26.40 | 19.14 | 14.65 | 35.53  |
+| BART DG pm    | 41.85 | 27.45 | 20.47 | 16.33 | 37.15  |
+| BART DG an+pm | 40.26 | 25.86 | 18.85 | 14.65 | 35.64  |
 * higher is better
 
 | model         | Count BLEU1 > 0.95 |
 |---------------|--------------------|
-| Bert DG       | 115                |
-| Bert DG pm    | 57                 |
-| Bert DG an+pm | 43                 |
-| Bart DG       | 110                |
-| Bart DG pm    | 60                 |
-| Bart DG an+pm | 23                 |
+| BERT DG       | 115                |
+| BERT DG pm    | 57                 |
+| BERT DG an+pm | 43                 |
+| BART DG       | 110                |
+| BART DG pm    | 60                 |
+| BART DG an+pm | 23                 |
 | Gold          | 12                 |
 * lower is better
 
@@ -42,7 +42,7 @@ https://colab.research.google.com/drive/1yA3Rex9JHKJmc52E3YdsBQ4eQ_R6kEZB?usp=sh
 
 If you make use of the code in this repository, please cite the following papers:
 
-    @inproceedings{chung-etal-2020-bert,
+    @inproceedings{chung-etal-2020-BERT,
     title = "A {BERT}-based Distractor Generation Scheme with Multi-tasking and Negative Answer Training Strategies.",
     author = "Chung, Ho-Lam  and
       Chan, Ying-Hong  and
@@ -70,7 +70,7 @@ run `convert_data.py` to do preprocessing.
 run `dataset_stat.py` for dataset statistics.  
 
 ## Train Distractor Generator
-### Bart
+### BART
 using tfkit==0.7.0 and transformers==4.4.2  
 ```bash
 tfkit-train --savedir ./race_cqa_gen_d_bart/ --train ./race_train_updated_cqa_dsep_a_bart.csv --test ./race_test_updated_cqa_dsep_a_bart.csv --model seq2seq  --config facebook/bart-base --batch 9 --epoch 10 --grad_accum 2 --no_eval;
@@ -78,7 +78,7 @@ tfkit-train --savedir ./race_cqa_gen_d_bart_pm/ --train ./race_train_updated_cqa
 tfkit-train --savedir ./race_cqa_gen_d_bart_both/ --train ./race_train_updated_cqa_dsep_a_bart.csv --test ./race_test_updated_cqa_dsep_a_bart.csv --model seq2seq  --config facebook/bart-base --batch 9 --epoch 10 --grad_accum 2 --no_eval --likelihood both;
 ```
 
-### Bert
+### BERT
 using environment from `requirement.txt`   
 run the following in main dir:  
 ### Train BDG Model
