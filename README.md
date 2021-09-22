@@ -3,7 +3,7 @@
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fvoidful%2FBDG.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fvoidful%2FBDG?ref=badge_shield)
 
 Code for "A BERT-based Distractor Generation Scheme with Multi-tasking and
-Negative Answer Training Strategies."  
+Negative Answer Training Strategies."
 [Paper](https://www.aclweb.org/anthology/2020.findings-emnlp.393/)
 
 ## V2
@@ -34,16 +34,16 @@ model | BLEU1 | BLEU2 | BLEU3 | BLEU4 | ROUGEL |
 
 ### BART
 
-Distractor: https://huggingface.co/voidful/bart-distractor-generation  
-Distractor PM: https://huggingface.co/voidful/bart-distractor-generation-pm  
+Distractor: https://huggingface.co/voidful/bart-distractor-generation
+Distractor PM: https://huggingface.co/voidful/bart-distractor-generation-pm
 Distractor AN+PM: https://huggingface.co/voidful/bart-distractor-generation-both
 
 ### BERT
 
-Trained model available on release:  
+Trained model available on release:
 https://github.com/voidful/BDG/releases/tag/v1.0
 
-Colab notebook for using pre trained model:  
+Colab notebook for using pre trained model:
 https://colab.research.google.com/drive/1yA3Rex9JHKJmc52E3YdsBQ4eQ_R6kEZB?usp=sharing
 
 ## Citation
@@ -74,11 +74,11 @@ pip install -r requirement.txt
 
 ## Data Preprocessing
 
-Inside `data_preprocessing` folder.  
+Inside `data_preprocessing` folder.
 Download dataset
 [here](https://github.com/Yifan-Gao/Distractor-Generation-RACE), put it into
-`distractor` folder.  
-run `convert_data.py` to do preprocessing.  
+`distractor` folder.
+run `convert_data.py` to do preprocessing.
 run `dataset_stat.py` for dataset statistics.
 
 ## Train Distractor Generator
@@ -95,7 +95,7 @@ tfkit-train --savedir ./race_cqa_gen_d_bart_both/ --train ./race_train_updated_c
 
 ### BERT
 
-using environment from `requirement.txt`  
+using environment from `requirement.txt`
 run the following in main dir:
 
 ### Train BDG Model
