@@ -1,4 +1,6 @@
 # BDG(Distractor Generation)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fvoidful%2FBDG.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fvoidful%2FBDG?ref=badge_shield)
+
 Code for "A BERT-based Distractor Generation Scheme with Multi-tasking and Negative Answer Training Strategies."  
 [Paper](https://www.aclweb.org/anthology/2020.findings-emnlp.393/)
 
@@ -157,3 +159,7 @@ python ./examples/run_multiple_choice.py \
 ```
 
 
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fvoidful%2FBDG.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fvoidful%2FBDG?ref=badge_large)
