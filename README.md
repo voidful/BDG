@@ -31,6 +31,43 @@ Distractor: https://huggingface.co/voidful/bart-distractor-generation
 Distractor PM: https://huggingface.co/voidful/bart-distractor-generation-pm  
 Distractor AN+PM: https://huggingface.co/voidful/bart-distractor-generation-both  
 
+#### Generate three BART distractor candidates
+
+Use PyTorch and Transformers in a separate environment from the original
+BERT/tfkit experiments. The published Hugging Face model does not need
+`nlp2go` or `tfkit` for this inference path.
+
+```python
+from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
+
+model_id = "voidful/bart-distractor-generation-pm"
+tokenizer = AutoTokenizer.from_pretrained(model_id)
+model = AutoModelForSeq2SeqLM.from_pretrained(model_id)
+model.eval()
+
+context = "Maya brushes her teeth after breakfast but before going to school."
+question = "When does Maya brush her teeth?"
+answer = "After breakfast."
+prompt = f"{context} </s> {question} </s> {answer}"
+inputs = tokenizer(prompt, return_tensors="pt")
+
+if inputs["input_ids"].shape[-1] > model.config.max_position_embeddings:
+    raise ValueError("Shorten the context while keeping the question and answer.")
+
+output_ids = model.generate(
+    **inputs, num_beams=3, num_return_sequences=3, max_new_tokens=32
+)
+distractors = tokenizer.batch_decode(output_ids, skip_special_tokens=True)
+print(distractors)
+```
+
+This requests three candidates; it does not guarantee three distinct or valid
+distractors. Review the candidates and remove duplicates and correct answers
+before using them as choices. Input limits count tokenizer tokens, including
+special tokens, not characters. The BART input budget is 1,024 tokens; it
+includes the context, question, and answer. For a longer passage, choose a
+relevant paragraph or window and preserve the question and answer.
+
 ### BERT 
 Trained model available on release:  
 https://github.com/voidful/BDG/releases/tag/v1.0
@@ -59,6 +96,16 @@ If you make use of the code in this repository, please cite the following papers
 
 
 ## Environment Setup
+
+`requirement.txt` describes the historical BERT training environment; do not
+combine it with the BART training versions below or with current Transformers
+in one environment. If an old notebook reports that `nlp2go` cannot import
+`cached_path` from Transformers, this comes from the legacy inference stack.
+The historical `nlp2go` 0.4.15 workaround is described in
+[#13](https://github.com/voidful/BDG/issues/13); for standalone BART inference,
+prefer the Transformers-only example above. The original BERT setup uses a
+512-token input budget and does not support arbitrary-length paragraphs.
+
 ```bash
 pip install -r requirement.txt
 ```
@@ -97,7 +144,17 @@ tfkit-train --maxlen 512 --savedir ./race_cqa_gen_d_pm/ --train ./data_preproces
 ```bash
 tfkit-train --maxlen 512 --savedir ./race_cqa_gen_d_both/ --train ./data_preprocessing/processed_data/race_train_updated_cqa_dsep_a.csv --test ./data_preprocessing/processed_data/race_test_updated_cqa_dsep_a.csv --model onebyone-both --tensorboard  --config bert-base-cased --batch 30 --epoch 6;
 ```
-### Eval generator   
+### Eval generator
+
+The BART versions listed above are training references, not interchangeable
+evaluation environments. To compare tfkit releases, first generate and save
+predictions, then score the **same** predictions against the **same** references
+with both metric implementations. Separately, compare decoding time with the
+same checkpoint, data order, decoding settings, batch size, and device, excluding
+model loading. Record exact package versions and preprocessing. The differences
+reported in [#10](https://github.com/voidful/BDG/issues/10) have not been
+independently reproduced here.
+
 ```bash
 tfkit-eval --model model_path --valid ./data_preprocessing/processed_data/race_test_updated_cqa_dall.csv --metric nlg
 ```
